@@ -255,6 +255,12 @@ class AuthenticatedClient(PublicClient):
         params.update(kwargs)
         return self._send_message('post', '/orders', data=json.dumps(params))
 
+    def convert(self, source_currency, target_currency, amount):
+        params = {'from': source_currency,
+                  'to': target_currency,
+                  'amount': amount}
+        return self._send_message('post', '/conversions', data=json.dumps(params))
+
     def buy(self, product_id, order_type, **kwargs):
         """Place a buy order.
 
